@@ -1,0 +1,46 @@
+{
+	"name" : "2x8 simple turing emulator",
+	"alphabet": [ "1", "0", "." ],
+	"blank" : ".",
+	"states" : [ "q0", "q1a", "q1b", "q2aa", "q2ab", "q2ba", "q2bb", "qv", "qf" ],
+	"initial" : "q0",
+	"finals" : [ "qf" ],
+	"transitions" : {
+		"q0": [
+			{ "read" : "0", "to_state": "q1a", "write": ".", "action": "RIGHT"},
+			{ "read" : "1", "to_state": "q1b", "write": ".", "action": "RIGHT"}
+		],
+		"q1a": [
+			{ "read" : "0", "to_state": "q2aa", "write": ".", "action": "RIGHT"},
+			{ "read" : "1", "to_state": "q2ab", "write": ".", "action": "RIGHT"}
+		],
+		"q1b": [
+			{ "read" : "0", "to_state": "q2ba", "write": ".", "action": "RIGHT"},
+			{ "read" : "1", "to_state": "q2bb", "write": ".", "action": "RIGHT"}
+		],
+		"q2aa": [
+			{ "read" : "0", "to_state": "q2aa", "write": "1", "action": "RIGHT"},
+			{ "read" : "1", "to_state": "q2aa", "write": "1", "action": "RIGHT"},
+			{ "read" : ".", "to_state": "qf", "write": ".", "action": "LEFT"}
+		],
+		"q2ab": [
+			{ "read" : "0", "to_state": "q2ab", "write": "1", "action": "RIGHT"},
+			{ "read" : "1", "to_state": "q2ab", "write": "1", "action": "RIGHT"},
+			{ "read" : ".", "to_state": "qv", "write": ".", "action": "LEFT"}
+		],
+		"q2ba": [
+			{ "read" : "0", "to_state": "q2ba", "write": "0", "action": "RIGHT"},
+			{ "read" : "1", "to_state": "q2ba", "write": "0", "action": "RIGHT"},
+			{ "read" : ".", "to_state": "qf", "write": ".", "action": "LEFT"}
+		],
+		"q2bb": [
+			{ "read" : "0", "to_state": "q2bb", "write": "0", "action": "RIGHT"},
+			{ "read" : "1", "to_state": "q2bb", "write": "0", "action": "RIGHT"},
+			{ "read" : ".", "to_state": "qv", "write": ".", "action": "LEFT"}
+		],
+		"qv": [
+			{ "read" : "0", "to_state": "qf", "write": "1", "action": "RIGHT"},
+			{ "read" : "1", "to_state": "qf", "write": "0", "action": "RIGHT"}
+		]
+	}
+}

@@ -1,0 +1,49 @@
+{
+	"name" : "0^n1^n",
+	"alphabet": [ "1", ".", "0", "y", "n", "A", "B", " " ],
+	"blank" : ".",
+	"states" : [ "q0", "q1", "q2", "q3", "qn", "qy", "qf" ],
+	"initial" : "q0",
+	"finals" : [ "qf" ],
+	"transitions" : {
+		"q0": [
+			{ "read" : ".", "to_state": "qy", "write": " ", "action": "RIGHT"},
+			{ "read" : "0", "to_state": "q1", "write": "A", "action": "RIGHT"},
+			{ "read" : "1", "to_state": "qn", "write": " ", "action": "RIGHT"},
+			{ "read" : "B", "to_state": "q3", "write": "B", "action": "RIGHT"}
+		],
+		"q1": [
+			{ "read" : "B", "to_state": "q1", "write": "B", "action": "RIGHT"},
+			{ "read" : "0", "to_state": "q1", "write": "0", "action": "RIGHT"},
+			{ "read" : "1", "to_state": "q2", "write": "B", "action": "LEFT"},
+			{ "read" : ".", "to_state": "qn", "write": " ", "action": "LEFT"}
+		],
+		"q2": [
+			{ "read" : "B", "to_state": "q2", "write": "B", "action": "LEFT"},
+			{ "read" : "0", "to_state": "q2", "write": "0", "action": "LEFT"},
+			{ "read" : "A", "to_state": "q0", "write": "A", "action": "RIGHT"}
+		],
+		"q3": [
+			{ "read" : "B", "to_state": "q3", "write": "B", "action": "RIGHT"},
+			{ "read" : ".", "to_state": "qy", "write": ".", "action": "RIGHT"},
+			{ "read" : "1", "to_state": "qn", "write": " ", "action": "LEFT"},
+			{ "read" : "0", "to_state": "qn", "write": " ", "action": "LEFT"}
+		],
+		"qn": [
+			{ "read" : "1", "to_state": "qn", "write": "1", "action": "RIGHT"},
+			{ "read" : "0", "to_state": "qn", "write": "0", "action": "RIGHT"},
+			{ "read" : "A", "to_state": "qn", "write": "A", "action": "RIGHT"},
+			{ "read" : "B", "to_state": "qn", "write": "B", "action": "RIGHT"},
+			{ "read" : " ", "to_state": "qn", "write": " ", "action": "RIGHT"},
+			{ "read" : ".", "to_state": "qf", "write": "n", "action": "LEFT"}
+		],
+		"qy": [
+			{ "read" : "1", "to_state": "qy", "write": "1", "action": "RIGHT"},
+			{ "read" : "0", "to_state": "qy", "write": "0", "action": "RIGHT"},
+			{ "read" : "A", "to_state": "qy", "write": "A", "action": "RIGHT"},
+			{ "read" : "B", "to_state": "qy", "write": "B", "action": "RIGHT"},
+			{ "read" : " ", "to_state": "qy", "write": " ", "action": "RIGHT"},
+			{ "read" : ".", "to_state": "qf", "write": "y", "action": "LEFT"}
+		]
+	}
+}
