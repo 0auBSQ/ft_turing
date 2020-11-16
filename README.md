@@ -3,9 +3,10 @@ JSON Turing machine emulator in Javascript
 
 ## Important information
 
+- This project is proposed by 42
 - The program mostly uses Javascript's functional paradigm (Only one imperative while since Node doesn't support TCO (Tail Call Optimisation))
 - The program mostly uses ES6 arrow functions
-- 
+- The challenge here was to complete this project in a single small file
 
 ## Requirements
 
