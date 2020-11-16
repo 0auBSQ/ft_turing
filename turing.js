@@ -7,7 +7,7 @@ const argv = process.argv.slice(2);
 const argc = argv.length;
 const usage = () => console.log("usage: node turing.js [-h] jsonfile input\n\npositional arguments:\n\tjsonfile\tjson description of the machine\n\n\tinput\t\tinput of the machine\n\noptional arguments:\n\t-h, --help\tshow this help message and exit") || process.exit(0);
 const invalid_argument = (arg) => console.log("Invalid argument : " + arg) || usage();
-const process_args = (argc, argv) => (argc == 2) || (argc == 3 && ["-h","--help"].includes(argv[0]) && usage()) || (argc == 3 && !["-h","--help"].includes(argv[0]) && invalid_argument(argv[0])) || (argc != 2 && argc != 3 && usage());
+const process_args = (argc, argv) => (argc >= 1 && ["-h","--help"].includes(argv[0]) && usage()) || (argc == 3 && !["-h","--help"].includes(argv[0]) && invalid_argument(argv[0])) || (argc != 2 && argc != 3 && usage());
 // Sanitize transitions method
 const member_keywords = (member) => (member.hasOwnProperty('read') && member.hasOwnProperty('to_state') && member.hasOwnProperty('write') && member.hasOwnProperty('action'));
 const member_types = (member) => (typeof member.read === 'string' && typeof member.to_state === 'string' && typeof member.write === 'string' && typeof member.action === 'string');
