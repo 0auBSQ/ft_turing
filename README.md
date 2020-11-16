@@ -7,6 +7,7 @@ JSON Turing machine emulator in Javascript
 - The program mostly uses Javascript's functional paradigm (Only one imperative while since Node doesn't support TCO (Tail Call Optimisation))
 - The program mostly uses ES6 arrow functions
 - The challenge here was to complete this project in a single small file
+- This program contains weak type abuse (Mostly considering that undefined/null in JS are falsy values)
 
 ## Requirements
 
