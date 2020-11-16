@@ -38,6 +38,7 @@ optional arguments:
 - The alphabet also contains work alphabet (mostly y and n), which can cause errors if you write them in the input 
 - Blocking the machine (attempting an undefined transition) exit the program and refuses the output
 - The final tape state is displayed if output is accepted (n included)
+- The complexity evaluation part is a very simple count which compares itself with common magnitudes
 
 ## Functions
 
@@ -93,5 +94,11 @@ get_step : object, string, int, int, object -> object
 check_idx : int -> bool
 expand_input : int, int -> int
 handle_pattern : array -> bool
-process_turing : object, string, int, object -> undefined 
+process_turing : object, string, int, object, int, int -> undefined 
+```
+Execution complexity :
+```
+get_color : int, int -> string
+evaluate_dist : string, int, int -> string
+evaluate_complexity : int, int -> undefined
 ```

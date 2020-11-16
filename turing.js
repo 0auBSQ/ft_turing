@@ -41,26 +41,30 @@ const get_step = (machine, input, idx, size, step) => machine.transitions[step].
 const check_idx = (idx) => (idx < 0) ? (console.error("Tape index under 0, exiting") || process.exit(1)) : true;
 const expand_input = (idx, size) => (idx >= size) ? size + 2 : size;
 const handle_pattern = (match) => (match.length < 1) ? (console.error("No method to process the current action, exiting") || process.exit(1)) : true;
+const get_color = (range, iter) => (iter > (range / 2) && (iter < range * 2)) ? "\33[32m" : ((iter > (range / 4) && (iter < range * 4)) ? "\33[33m" : "\33[31m");
+const evaluate_dist = (e, range, iter) => get_color(range, iter) + e + "\33[39m" + range;
+const evaluate_complexity = (size, iter) => console.log("Steps : " + iter + "\nComplexity references : " + evaluate_dist("\nf(1) : ", 1, iter) + evaluate_dist("\nf(log(n)) : ", Math.floor(Math.log(size)), iter) + evaluate_dist("\nf(n) : ", size, iter) + evaluate_dist("\nf(n*log(n)) : ", Math.floor(size * Math.log(size)), iter) + evaluate_dist("\nf(n^2) : ", size * size, iter) + evaluate_dist("\nf(2^n) : ", Math.pow(2, size), iter));
 // Node.js doesn't handle tail call optimisation, so I use a while loop to avoid stack overflow issues
-const process_turing = (machine, input, idx, step) => {
+const process_turing = (machine, input, idx, step, base, iter) => {
 	while (!machine.finals.includes(step)) {
 		try {
-			let input_size = input.length;
+			const input_size = input.length;
 			check_idx(idx);
 			input = input.padEnd(expand_input(idx, input_size), machine.blank);
-			let member_match = get_step(machine, input, idx, input_size, step);
+			const member_match = get_step(machine, input, idx, input_size, step);
 			handle_pattern(member_match);
-			let member = member_match[0];
+			const member = member_match[0];
 			print_step(step, idx, input, member);
 			input = input.substring(0, idx) + member.write + input.substring(idx + 1);
 			step = member.to_state;
 			idx += (member.action === "RIGHT") ? 1 : -1;
+			iter += 1;
 		} catch (e) {
 			console.error("Memory issue : " + e);
 			process.exit(1);
 		}
 	}
-	console.log("Result : [" + input + "]");
+	console.log("Result : [" + input + "]") || ((base > 0) ? evaluate_complexity(base, iter) : console.log("Can not evaluate complexity for empty input"));
 }
 // Global parsing
 let machine;
@@ -77,6 +81,7 @@ try {
 }
 // Print machine
 machine_info(machine);
+const base_size = input.length;
 input = input.padEnd(input.length + 10, machine.blank);
 // Turing process 
-process_turing(machine, input, 0, machine.initial);
+process_turing(machine, input, 0, machine.initial, base_size, 0);
